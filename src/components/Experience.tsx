@@ -216,8 +216,8 @@ export default function Experience() {
                                     src={current.logo}
                                     className="object-contain transition-all duration-500"
                                     style={{
-                                        maxWidth: "45%",
-                                        maxHeight: "45%"
+                                        maxWidth: "60%",
+                                        maxHeight: "60%"
                                     }}
                                 />
 

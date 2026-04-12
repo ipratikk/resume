@@ -13,12 +13,12 @@ const steps = [
         graph: [100, 80, 60, 40, 20, 10, 5],
     },
     {
-        text: "Shipped features contributing to $800M+ revenue",
-        metric: 800,
+        text: "Shipped features contributing to $500+ revenue",
+        metric: 500,
         prefix: "$",
         suffix: "M+",
         type: "increase",
-        graph: [50, 120, 200, 350, 500, 650, 800],
+        graph: [50, 100, 150, 200, 250, 400, 500],
     },
     {
         text: "Improved app performance by 20% at scale",
@@ -86,8 +86,8 @@ function Chart({
     progress: number;
     type: StepType;
 }) {
-    const width = 420;
-    const height = 200;
+    const width = 520;
+    const height = 250;
     const padding = 28;
 
     const norm = normalize(data);
@@ -127,54 +127,23 @@ function Chart({
 
     return (
         <svg width={width} height={height} className="mt-10 overflow-visible">
+            <line x1={padding} x2={width - padding} y1={height - padding} y2={height - padding} stroke="rgba(255,255,255,0.2)" />
+            <line x1={padding} x2={padding} y1={padding} y2={height - padding} stroke="rgba(255,255,255,0.2)" />
 
-            {/* AXES ONLY */}
-            <line
-                x1={padding}
-                x2={width - padding}
-                y1={height - padding}
-                y2={height - padding}
-                stroke="rgba(255,255,255,0.2)"
-                strokeWidth="1.5"
-            />
-
-            <line
-                x1={padding}
-                x2={padding}
-                y1={padding}
-                y2={height - padding}
-                stroke="rgba(255,255,255,0.2)"
-                strokeWidth="1.5"
-            />
-
-            {/* AREA */}
             <path d={areaPath} fill={color} opacity={0.18} />
 
-            {/* GLOW */}
-            <path
-                d={path}
-                fill="none"
-                stroke={color}
-                strokeWidth="10"
-                opacity="0.15"
-                strokeLinecap="round"
-            />
-
-            {/* LINE */}
+            <path d={path} fill="none" stroke={color} strokeWidth="10" opacity="0.15" />
             <path
                 ref={pathRef}
                 d={path}
                 fill="none"
                 stroke={color}
                 strokeWidth="3"
-                strokeLinecap="round"
                 strokeDasharray={1000}
                 strokeDashoffset={1000 * (1 - progress)}
             />
 
-            {/* DOT */}
             <circle cx={dot.x} cy={dot.y} r="6" fill={color} />
-
         </svg>
     );
 }
@@ -222,42 +191,68 @@ export default function CinematicImpact() {
     const progress = progressList[activeIndex];
 
     return (
-        <section className="relative bg-black text-white py-[20vh]">
-            <div className="container grid md:grid-cols-2 gap-20">
+        <section className="bg-black text-white relative">
+
+            <div className="flex relative">
 
                 {/* LEFT */}
-                <div className="space-y-[80vh] pt-[60vh] pb-[40vh]">
-                    {steps.map((s, i) => (
-                        <div key={i} ref={(el) => (refs.current[i] = el)}>
-                            <h2 className="text-3xl md:text-4xl">{s.text}</h2>
-                        </div>
-                    ))}
-                </div>
+                <div className="w-1/2">
+                    <div className="max-w-3xl ml-auto px-6 md:px-12 lg:px-20 space-y-[80vh] pt-[60vh] pb-[40vh]">
 
-                {/* RIGHT */}
-                <div className="relative">
-                    <div className="sticky top-[18vh] h-fit flex justify-center">
-
-                        <div className="w-[520px] h-[420px] rounded-[36px] bg-white/5 border border-white/10 p-10">
-
-                            <div className="text-7xl font-semibold">
-                                {step.prefix || ""}
-                                {Math.round(step.metric * progress)}
-                                {step.suffix || ""}
+                        {steps.map((s, i) => (
+                            <div key={i} ref={(el) => (refs.current[i] = el)}>
+                                <h2 className="text-3xl md:text-4xl">{s.text}</h2>
                             </div>
-
-                            <Chart
-                                data={step.graph}
-                                progress={progress}
-                                type={step.type}
-                            />
-
-                        </div>
+                        ))}
 
                     </div>
                 </div>
 
+                {/* RIGHT SLAB */}
+                <div className="absolute inset-y-0 right-0 w-[50vw]">
+
+                    <div className="sticky top-0 h-screen flex items-center pointer-events-none">
+
+                        <div className="w-full h-[520px] bg-[#1a1819] rounded-l-[40px] relative">
+
+                            {/* Elevation */}
+                            <div className="absolute inset-0 rounded-l-[40px] shadow-[0_60px_120px_rgba(0,0,0,0.6)]" />
+                            <div className="absolute inset-0 rounded-l-[40px] shadow-[0_20px_30px_rgba(0,0,0,0.4)]" />
+                            <div className="absolute bottom-[-30px] left-28 right-28 h-16 bg-black/10 blur-2xl rounded-full" />
+
+                            {/* Bevel */}
+                            <div className="absolute top-0 left-0 right-0 h-[1.5px]" />
+                            <div className="absolute top-0 bottom-0 left-0 w-[1.5px] bg-gray/2" />
+
+                            {/* Content */}
+                            <div
+                                className="w-full h-full flex flex-col justify-center px-12 relative z-10"
+                                style={{
+                                    transform: `scale(${0.96 + progress * 0.04})`,
+                                    opacity: 0.7 + progress * 0.3,
+                                }}
+                            >
+                                <div className="text-9xl font-semibold text-white">
+                                    {step.prefix || ""}
+                                    {Math.round(step.metric * progress)}
+                                    {step.suffix || ""}
+                                </div>
+
+                                <Chart
+                                    data={step.graph}
+                                    progress={progress}
+                                    type={step.type}
+                                />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
+
         </section>
     );
 }
