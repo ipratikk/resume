@@ -12,8 +12,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <CinematicImpact />
-      <ProductShowcase />
       <Experience />
+      <ProductShowcase />
       <Philosophy />
       <Footer />
     </main>
