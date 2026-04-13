@@ -1,21 +1,39 @@
+"use client";
+
+import { useState } from "react";
+
 import Navbar from "components/Navbar";
 import Hero from "components/Hero";
 import CinematicImpact from "components/CinematicImpact";
 import ProductShowcase from "components/ProductShowcase";
 import Experience from "components/Experience";
-import Philosophy from "components/Philosophy";
 import Footer from "components/Footer";
+import IntroAnimation from "components/IntroAnimation";
+import Skills from "components/Skills";
 
 export default function Home() {
+  const [showIntro, setShowIntro] = useState(true);
+
   return (
     <main>
-      <Navbar />
-      <Hero />
-      <CinematicImpact />
-      <Experience />
-      <ProductShowcase />
-      <Philosophy />
-      <Footer />
+
+      {showIntro && (
+        <IntroAnimation onComplete={() => setShowIntro(false)} />
+      )}
+
+      {/* MAIN CONTENT */}
+      <div className={`${showIntro ? "opacity-0" : "opacity-100"} transition-opacity duration-700`}>
+
+        {/* <Navbar /> */}
+        <Hero />
+        <CinematicImpact />
+        <Experience />
+        <ProductShowcase />
+        <Skills />
+        <Footer />
+
+      </div>
+
     </main>
   );
 }

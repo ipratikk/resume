@@ -16,16 +16,19 @@ const companies = [
                 title: "PayPal Everywhere (PPE)",
                 desc: "Unified onboarding and financial platform deployed across multiple regions including US, UK, and Germany.",
                 sub: "Led development of native modules and architecture supporting region-specific compliance, data collection, and onboarding flows.",
+                link: "https://newsroom.paypal-corp.com/2024-09-05-Introducing-PayPal-Everywhere",
             },
             {
                 title: "PPE US, UK & DE",
                 desc: "Scaled onboarding and compliance flows across multiple international markets with varying regulatory requirements.",
                 sub: "Built and adapted KYC flows, data collection systems, and APIs to support region-specific rules and seamless rollout.",
+                link: "https://newsroom.paypal-corp.com/2025-05-05-PayPal-announces-plans-to-revolutionize-in-store-payments-in-Germany",
             },
             {
                 title: "Auto Reload System",
                 desc: "Ensures uninterrupted transactions by automatically reloading balance when thresholds are reached.",
                 sub: "Owned end-to-end implementation across native client and backend-driven flows, including UI, logic, and integrations.",
+                link: "https://newsroom.paypal-corp.com/2025-05-05-PayPal-announces-plans-to-revolutionize-in-store-payments-in-Germany",
             },
             {
                 title: "Savings & Balance Platform",
@@ -37,7 +40,7 @@ const companies = [
     {
         name: "Rakuten",
         showName: false,
-        logo: "/logos/rakuten.svg",
+        logo: "/logos/rakuten_dark_bg.svg",
         website: "https://www.rakuten.com",
         app: "https://apps.apple.com/us/app/rakuten-link/id1498877539",
         cards: [
@@ -45,6 +48,7 @@ const companies = [
                 title: "Rakuten Link Office",
                 desc: "Enterprise communication platform supporting messaging and calling features.",
                 sub: "Contributed to public launch by building core chat and call functionality with improved reliability.",
+                link: "https://business.mobile.rakuten.co.jp/service/rakuten-link-office/?l-id=gnavi_rakuten-link-office",
             },
             {
                 title: "Performance Optimization",
@@ -81,14 +85,30 @@ const companies = [
 
 /* ================= CARD ================= */
 
-function Card({ title, desc, sub }: any) {
+function Card({ title, desc, sub, link }: any) {
     return (
         <div className="min-w-[420px] h-[360px] rounded-[28px] bg-[#111] border border-white/10 p-8 flex flex-col justify-between">
+
+            {/* CONTENT */}
             <div className="space-y-4">
                 <h3 className="text-xl font-semibold text-white">{title}</h3>
                 <p className="text-sm text-white/70 leading-relaxed">{desc}</p>
                 <p className="text-sm text-white/50 leading-relaxed">{sub}</p>
             </div>
+
+            {/* LEARN MORE */}
+            {link && (
+                <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-[#2997ff] hover:text-white transition flex items-center gap-1"
+                >
+                    Learn more
+                    <span className="text-xs">↗</span>
+                </a>
+            )}
+
         </div>
     );
 }
@@ -223,8 +243,8 @@ function CompanyRow({ company }: any) {
                         onClick={scrollLeft}
                         disabled={!canScrollLeft}
                         className={`rounded-full px-4 py-2 text-sm transition ${canScrollLeft
-                                ? "bg-white/10 text-white hover:bg-white/20"
-                                : "bg-white/5 text-white/30 cursor-not-allowed"
+                            ? "bg-white/10 text-white hover:bg-white/20"
+                            : "bg-white/5 text-white/30 cursor-not-allowed"
                             }`}
                     >
                         ←
@@ -234,8 +254,8 @@ function CompanyRow({ company }: any) {
                         onClick={scrollRight}
                         disabled={!canScrollRight}
                         className={`rounded-full px-4 py-2 text-sm transition ${canScrollRight
-                                ? "bg-white/10 text-white hover:bg-white/20"
-                                : "bg-white/5 text-white/30 cursor-not-allowed"
+                            ? "bg-white/10 text-white hover:bg-white/20"
+                            : "bg-white/5 text-white/30 cursor-not-allowed"
                             }`}
                     >
                         →

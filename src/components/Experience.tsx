@@ -33,7 +33,7 @@ const experiences = [
     },
     {
         id: "rakuten",
-        logo: "/logos/rakuten.svg",
+        logo: "/logos/rakuten_light_bg.svg",
         company: "Rakuten",
         roles: [
             {
