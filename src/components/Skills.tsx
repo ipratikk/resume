@@ -266,6 +266,17 @@ const place = (grid: number[][], r: number, c: number, w: number, h: number) => 
   }
 };
 
+const isIOSSkill = (name: string) => {
+  const iosKeywords = [
+    "iOS", "Swift", "UIKit", "SwiftUI", "Combine", "RxSwift",
+    "Core Data", "Swift Concurrency", "Networking",
+    "ARC & Memory", "Core Animation", "Dependency Injection",
+    "Unit Testing (XCTest)", "XCUITest", "Test Architecture", "Quick/Nimble",
+    "MVVM", "VIPER"
+  ];
+  return iosKeywords.includes(name);
+};
+
 const generateLayout = () => {
   const rows = 6; // fixed height
   const cols = Math.ceil(skills.length * 1.5); // expand horizontally
@@ -273,8 +284,17 @@ const generateLayout = () => {
   const layout: any[] = [];
 
   const sorted = [...skills].sort((a, b) => {
+    const isAIOS = isIOSSkill(a.name);
+    const isBIOS = isIOSSkill(b.name);
+
+    // iOS skills first
+    if (isAIOS && !isBIOS) return -1;
+    if (!isAIOS && isBIOS) return 1;
+
     const A = skillInsights[a.name];
     const B = skillInsights[b.name];
+
+    // then sort by importance
     return (B.level + B.years) - (A.level + A.years);
   });
 
