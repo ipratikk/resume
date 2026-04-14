@@ -186,30 +186,6 @@ const skillInsights: Record<string, any> = {
 
 import { useEffect, useRef, useState } from "react";
 
-const styles = `
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.2);
-  border-radius: 10px;
-}
-::-webkit-scrollbar {
-  display: none;
-}
-`;
 
 const getSkillClass = (skill: string, index: number) => {
   const data = skillInsights[skill];
@@ -356,12 +332,6 @@ export default function Skills() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const styleTag = document.createElement("style");
-    styleTag.innerHTML = styles;
-    document.head.appendChild(styleTag);
-    return () => document.head.removeChild(styleTag);
-  }, []);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -393,7 +363,7 @@ export default function Skills() {
             <div className="w-full h-full rounded-[28px] bg-black text-white p-6 flex flex-col">
 
               {data && (
-                <div key={activeSkill} className="flex flex-col h-full" style={{ animation: "fadeInUp 0.3s ease" }}>
+                <div key={activeSkill} className="flex flex-col h-full transition-all duration-300">
 
                   {/* TOP */}
                   <div className="space-y-3">
@@ -493,7 +463,7 @@ export default function Skills() {
               onTouchEnd={() => {
                 isDragging.current = false;
               }}
-              className="h-full overflow-x-auto overflow-y-visible px-12 py-8 cursor-grab active:cursor-grabbing"
+              className="h-full overflow-x-auto overflow-y-visible px-12 py-8 cursor-grab active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               style={{
                 scrollbarWidth: "none",
                 msOverflowStyle: "none",

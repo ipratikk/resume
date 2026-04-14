@@ -10,6 +10,7 @@ import Experience from "components/Experience";
 import Footer from "components/Footer";
 import IntroAnimation from "components/IntroAnimation";
 import Skills from "components/Skills";
+import Projects from "components/Projects";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -30,6 +31,7 @@ export default function Home() {
         <Experience />
         <ProductShowcase />
         <Skills />
+        <Projects />
         <Footer />
 
       </div>
