@@ -21,7 +21,27 @@
 /build
 
 # misc
+
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# vscode
+.vscode/
+
+# logs
+logs
+*.log
+
+# cache
+.cache/
+.next/cache/
+
+# temp
+tmp/
+temp/
+
 *.pem
 
 # debug
@@ -39,3 +59,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local development
+.local/

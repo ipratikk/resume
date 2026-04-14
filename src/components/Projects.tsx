@@ -127,7 +127,7 @@ const DeviceCarousel: React.FC<CarouselProps> = ({ media, projectName }) => {
                                         </clipPath>
                                     </defs>
                                     <foreignObject x="0" y="0" width="415" height="843" clipPath="url(#iphoneClip)">
-                                        <div xmlns="http://www.w3.org/1999/xhtml" className="w-full h-full flex items-center justify-center">
+                                        <div className="w-full h-full flex items-center justify-center">
                                             {item.endsWith(".mp4") ? (
                                                 <video
                                                     src={item}
@@ -218,7 +218,9 @@ export default function Projects() {
                         <div
                             key={project.name}
                             data-project={project.name}
-                            ref={(el) => (refs.current[project.name] = el)}
+                            ref={(el) => {
+                                refs.current[project.name] = el;
+                            }}
                             className={`grid grid-cols-2 gap-16 items-center min-h-screen transition-all duration-700 ease-out ${visibleProjects[project.name]
                                 ? "opacity-100 translate-y-0"
                                 : "opacity-0 translate-y-10"

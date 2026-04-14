@@ -48,7 +48,7 @@ function computeProgress(rect: DOMRect) {
 
 /* ================= HELPERS ================= */
 
-function normalize(data: number[]) {
+function normalize(data: readonly number[]) {
     const max = Math.max(...data);
     const min = Math.min(...data);
     return data.map((d) => (d - min) / (max - min || 1));
@@ -82,7 +82,7 @@ function Chart({
     progress,
     type,
 }: {
-    data: number[];
+    data: readonly number[];
     progress: number;
     type: StepType;
 }) {
@@ -200,7 +200,7 @@ export default function CinematicImpact() {
                     <div className="max-w-3xl ml-auto px-6 md:px-12 lg:px-20 space-y-[80vh] pt-[60vh] pb-[40vh]">
 
                         {steps.map((s, i) => (
-                            <div key={i} ref={(el) => (refs.current[i] = el)}>
+                            <div key={i} ref={(el) => { refs.current[i] = el; }}>
                                 <h2 className="text-3xl md:text-4xl">{s.text}</h2>
                             </div>
                         ))}
@@ -233,7 +233,7 @@ export default function CinematicImpact() {
                                 }}
                             >
                                 <div className="text-9xl font-semibold text-white">
-                                    {step.prefix || ""}
+                                    {"prefix" in step ? step.prefix : ""}
                                     {Math.round(step.metric * progress)}
                                     {step.suffix || ""}
                                 </div>

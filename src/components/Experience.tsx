@@ -145,7 +145,9 @@ export default function Experience() {
                         {experiences.map((exp, index) => (
                             <div
                                 key={exp.id}
-                                ref={(el) => (refs.current[index] = el)}
+                                ref={(el) => {
+                                    refs.current[index] = el;
+                                }}
                             >
                                 <div className="space-y-6">
 
