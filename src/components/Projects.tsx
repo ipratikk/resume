@@ -120,21 +120,34 @@ const DeviceCarousel: React.FC<CarouselProps> = ({ media, projectName }) => {
                         <div className={`relative ${offset === 0 ? "w-[240px]" : "w-[200px]"}`}>
                             <div className="relative w-full">
 
-                                <div
-                                    className="absolute z-0 overflow-hidden"
-                                    style={{
-                                        top: "0.5%",
-                                        left: "1.7%",
-                                        width: "96.6%",
-                                        height: "98.8%",
-                                    }}
-                                >
-                                    {item.endsWith(".mp4") ? (
-                                        <video src={item} autoPlay muted loop className="w-full h-full object-cover pointer-events-none" />
-                                    ) : (
-                                        <img src={item} alt={projectName} className="w-full h-full object-cover pointer-events-none" />
-                                    )}
-                                </div>
+                                <svg className="absolute inset-0 z-0 w-full h-full" viewBox="0 0 415 843" preserveAspectRatio="xMidYMid meet">
+                                    <defs>
+                                        <clipPath id="iphoneClip">
+                                            <rect x="7" y="4" width="401" height="835" rx="58" />
+                                        </clipPath>
+                                    </defs>
+                                    <foreignObject x="0" y="0" width="415" height="843" clipPath="url(#iphoneClip)">
+                                        <div xmlns="http://www.w3.org/1999/xhtml" className="w-full h-full flex items-center justify-center">
+                                            {item.endsWith(".mp4") ? (
+                                                <video
+                                                    src={item}
+                                                    autoPlay
+                                                    muted
+                                                    loop
+                                                    className="w-full h-full object-cover pointer-events-none"
+                                                    style={{ transform: "scale(0.96)" }}
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={item}
+                                                    alt={projectName}
+                                                    className="w-full h-full object-cover pointer-events-none"
+                                                    style={{ transform: "scale(0.96)" }}
+                                                />
+                                            )}
+                                        </div>
+                                    </foreignObject>
+                                </svg>
 
                                 <img
                                     src="/iphone.svg"
@@ -169,9 +182,33 @@ const DeviceCarousel: React.FC<CarouselProps> = ({ media, projectName }) => {
 };
 
 export default function Projects() {
+    const [visibleProjects, setVisibleProjects] = useState<Record<string, boolean>>({});
+    const refs = useRef<Record<string, HTMLDivElement | null>>({});
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const key = entry.target.getAttribute("data-project");
+                        if (key) {
+                            setVisibleProjects((prev) => ({ ...prev, [key]: true }));
+                        }
+                    }
+                });
+            },
+            { threshold: 0.5 }
+        );
+
+        Object.values(refs.current).forEach((el) => {
+            if (el) observer.observe(el);
+        });
+
+        return () => observer.disconnect();
+    }, []);
 
     return (
-        <section className="bg-black text-white min-h-screen flex items-center py-20">
+        <section className="bg-black text-white py-20">
             <div className="w-full max-w-7xl mx-auto px-10 space-y-24">
 
                 {projects.map((project, index) => {
@@ -180,11 +217,16 @@ export default function Projects() {
                     return (
                         <div
                             key={project.name}
-                            className="grid grid-cols-2 gap-16 items-center"
+                            data-project={project.name}
+                            ref={(el) => (refs.current[project.name] = el)}
+                            className={`grid grid-cols-2 gap-16 items-center min-h-screen transition-all duration-700 ease-out ${visibleProjects[project.name]
+                                ? "opacity-100 translate-y-0"
+                                : "opacity-0 translate-y-10"
+                                }`}
                         >
 
                             {/* LEFT - MEDIA */}
-                            <div className={`${isReversed ? "md:order-2" : "md:order-1"} relative`}>
+                            <div className={`${isReversed ? "md:order-2" : "md:order-1"} relative flex items-center`}>
                                 <DeviceCarousel
                                     media={project.media || []}
                                     projectName={project.name}
@@ -192,7 +234,7 @@ export default function Projects() {
                             </div>
 
                             {/* RIGHT - DETAILS */}
-                            <div className={`flex flex-col justify-between h-full ${isReversed ? "md:order-1" : "md:order-2"}`}>
+                            <div className={`flex flex-col justify-center ${isReversed ? "md:order-1" : "md:order-2"}`}>
 
                                 {/* Title */}
                                 <div>
