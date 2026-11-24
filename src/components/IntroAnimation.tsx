@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
+import { asset } from "../lib/asset";
 
 export default function IntroAnimation({
     onComplete,
@@ -12,7 +13,7 @@ export default function IntroAnimation({
     const [visible, setVisible] = useState(true);
 
     useEffect(() => {
-        fetch("/lottie/hello.json")
+        fetch(asset("/lottie/hello.json"))
             .then((res) => res.json())
             .then((data) => setAnimationData(data));
     }, []);

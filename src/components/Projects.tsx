@@ -1,5 +1,7 @@
 "use client";
 
+import { asset } from "../lib/asset";
+
 import React, { useState, useRef, useEffect } from "react";
 
 type Project = {
@@ -43,7 +45,7 @@ const projects: Project[] = [
             "Reactive iOS app built with SwiftUI and Combine, integrating Google Calendar APIs with authentication, structured data pipelines, and real-time updates.",
         tech: ["SwiftUI", "Combine", "Google APIs", "Reactive Programming"],
         link: "https://github.com/ipratikk/Google-Calendar-API-Demo",
-        media: ["/projects/calendar.mp4"],
+        media: [asset("/projects/calendar.mp4")],
     },
 ];
 
@@ -150,7 +152,7 @@ const DeviceCarousel: React.FC<CarouselProps> = ({ media, projectName }) => {
                                 </svg>
 
                                 <img
-                                    src="/iphone.svg"
+                                    src={asset("/iphone.svg")}
                                     alt="iPhone mockup"
                                     className="relative z-10 w-full h-auto"
                                 />
