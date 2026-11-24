@@ -1,5 +1,7 @@
 "use client";
 
+import { asset } from "../lib/asset";
+
 import { useRef, useState, useEffect } from "react";
 
 /* ================= DATA ================= */
@@ -8,7 +10,7 @@ const companies = [
     {
         name: "PayPal",
         showName: false,
-        logo: "/logos/paypal_dark_bg.svg",
+        logo: asset("/logos/paypal_dark_bg.svg"),
         website: "https://www.paypal.com",
         app: "https://apps.apple.com/us/app/paypal-pay-send-save/id283646709",
         cards: [
@@ -40,7 +42,7 @@ const companies = [
     {
         name: "Rakuten",
         showName: false,
-        logo: "/logos/rakuten_dark_bg.svg",
+        logo: asset("/logos/rakuten_dark_bg.svg"),
         website: "https://www.rakuten.com",
         app: "https://apps.apple.com/us/app/rakuten-link/id1498877539",
         cards: [
@@ -65,7 +67,7 @@ const companies = [
     {
         name: "Ernst & Young",
         showName: true,
-        logo: "/logos/ey_dark_bg.svg",
+        logo: asset("/logos/ey_dark_bg.svg"),
         website: "https://www.ey.com",
         app: null,
         cards: [

@@ -1,4 +1,6 @@
 "use client";
+
+import { asset } from "../lib/asset";
 const skillInsights: Record<string, any> = {
   iOS: {
     companies: ["paypal", "rakuten"],
@@ -384,7 +386,7 @@ export default function Skills() {
                   <div className="mt-auto space-y-6">
                     <div className="flex gap-3">
                       {data.companies.map((c: string, i: number) => (
-                        <img key={i} src={`/logos/${c}_dark_bg.svg`} className="h-8" />
+                        <img key={i} src={asset(`/logos/${c}_dark_bg.svg`)} className="h-8" />
                       ))}
                     </div>
 

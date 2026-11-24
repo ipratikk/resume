@@ -1,5 +1,7 @@
 "use client";
 
+import { asset } from "../lib/asset";
+
 import { useEffect, useRef, useState } from "react";
 
 /* ================= DATA ================= */
@@ -7,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 const experiences = [
     {
         id: "paypal",
-        logo: "/logos/paypal_light_bg.svg",
+        logo: asset("/logos/paypal_light_bg.svg"),
         company: "PayPal",
         roles: [
             {
@@ -33,7 +35,7 @@ const experiences = [
     },
     {
         id: "rakuten",
-        logo: "/logos/rakuten_light_bg.svg",
+        logo: asset("/logos/rakuten_light_bg.svg"),
         company: "Rakuten",
         roles: [
             {
@@ -57,7 +59,7 @@ const experiences = [
     },
     {
         id: "ey",
-        logo: "/logos/ey_light_bg.svg",
+        logo: asset("/logos/ey_light_bg.svg"),
         company: "Ernst & Young (EY)",
         roles: [
             {
